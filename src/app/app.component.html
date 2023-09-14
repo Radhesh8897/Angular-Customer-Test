@@ -1,0 +1,155 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <h1>Angular Test</h1>
+    </a>
+  </div>
+</nav>
+
+<!--Create Customer Section -->
+<div class="container-fluid py-3 " *ngIf="customerSection">
+  <form
+    name="form"
+    #f="ngForm"
+    (ngSubmit)="f.form.valid">
+  <a class="navbar-brand text-center" href="#">
+    <h4>Create Customer</h4>
+  </a>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlInput1" class="form-label">Name *</label>
+      <input type="email" class="form-control form-control-sm" id="username"  name="username"
+      [(ngModel)]="customerObj.username" 
+      required placeholder="Enter Name">
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlInput1" class="form-label">Email *</label>
+      <input type="email" class="form-control form-control-sm"  id="email"  name="email"
+      [(ngModel)]="customerObj.email" placeholder="name@example.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlTextarea1" class="form-label">Region *</label>
+      <ngx-select  
+      [(ngModel)]="customerObj.region"
+              [allowClear]="true" 
+              name="region"
+              [items]="regionList" 
+              optionValueField="region"
+              optionTextField="region" 
+              placeholder="Select Option" (selectionChanges)="selectionChanged($event)">
+            </ngx-select>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlTextarea1" class="form-label">Country</label>
+      <ngx-select  
+      [(ngModel)]="customerObj.country"
+              [allowClear]="true" 
+              name="country"
+              [items]="coutryArr" 
+              optionValueField="country"
+              optionTextField="country" 
+              placeholder="Select Option"  (selectionChanges)="selectionCountryChanged($event)">
+            </ngx-select>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col text-center">
+      <button class="btn btn-md btn-outline-primary" (click)="addCustomer()" [disabled]="f.invalid">Add Customer</button>
+    </div>
+  </div>
+</form>
+</div>
+
+<!--Create Pin Section -->
+<div class="container-fluid py-3"  *ngIf="pinSection">
+  <button type="button" class="btn btn-outline-primary" (click)="redirectCust()">Back</button>
+  <form
+    name="form"
+    #c="ngForm"
+    (ngSubmit)="c.form.valid">
+  <a class="navbar-brand text-center" href="#">
+    <h4>Create Pin</h4>
+  </a>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlInput1" class="form-label">Title *</label>
+      <input type="text" class="form-control form-control-sm"  name="title" required
+      [(ngModel)]="pinObj.title" id="exampleFormControlInput1" placeholder="Enter Title">
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlInput1" class="form-label">Upload Image *</label>
+        <input type="file" class="form-control" id="customFile" name="imageurl" [(ngModel)]="pinObj.imageurl" required/>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <label for="exampleFormControlTextarea1" class="form-label">Collaborators *</label>
+      <ngx-select  name="collaborators"
+      [(ngModel)]="pinObj.collaborators"
+              [allowClear]="true" 
+              [items]="custList" 
+              [multiple]="true"
+              name="username"
+              optionValueField="username"
+              optionTextField="username" 
+              placeholder="Select Option" required>
+            </ngx-select>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <label class="form-check-inline form-label" for="inlineRadio3">Privacy *</label>
+      <br>
+      <div class="form-check form-check-inline">
+       
+        <input class="form-check-input" type="radio" name="public" [(ngModel)]="pinObj.privacy"required id="inlineRadio1" value="Public">
+        <label class="form-check-label" for="inlineRadio1" name="public" 
+        >Public</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="privacy"  [(ngModel)]="pinObj.privacy" required id="inlineRadio2" value="Private">
+        <label class="form-check-label" for="inlineRadio2" name="privacy"
+        >Private</label>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col text-center">
+      <button class="btn btn-md btn-outline-primary" (click)="addpin()" [disabled]="c.invalid">Creat Pin</button>
+    </div>
+  </div>
+  </form>
+</div>
+
+<!--Create Grid Section -->
+<div class="container-fluid py-3" *ngIf="gridSection">
+  <button type="button" class="btn btn-outline-primary" (click)="redirectHome()">Back</button>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Image</th>
+        <th scope="col">Collaborators</th>
+        <th scope="col">Privacy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!-- <th scope="row">1</th> -->
+        <td>{{pinObj.title}}</td>
+        <td>{{pinObj.imageurl}}</td>
+        <td>{{pinObj.collaborators}}</td>
+        <td>{{pinObj.privacy}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
